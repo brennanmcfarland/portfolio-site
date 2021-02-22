@@ -1,6 +1,9 @@
 package brennanmcfarland.AboutMeDB;
 
 import java.sql.*;
+import java.util.Optional;
+import java.util.List;
+import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO: separate responsibilities
 @SpringBootApplication
 @RestController
 public class AboutMeDbApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(AboutMeDbApplication.class);
+	private Connection connection;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AboutMeDbApplication.class, args);
@@ -25,18 +30,32 @@ public class AboutMeDbApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
+		Class.forName("com.mysql.jdbc.Driver");
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aboutmedb","backend","");
-			Statement queryStatement = connection.createStatement();
-			ResultSet resultSet = queryStatement.executeQuery("select * from Keyword");
-			while(resultSet.next()) {
-				System.out.println(resultSet.getString(1));
-			}
-			connection.close();
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aboutmedb","backend","");
 		} catch(Exception e) {
+			System.out.println("CONNECTION ERROR");
 			System.out.println(e);
 		}
+	}
+
+	private Optional<ResultSet> executeSQLQuery(String queryString) throws SQLException {
+		Optional<Statement> queryStatement = Optional.empty();
+		Optional<ResultSet> resultSet = Optional.empty();
+		try {
+			queryStatement = Optional.of(connection.createStatement());
+			resultSet = Optional.of(queryStatement.get().executeQuery(queryString));
+		} catch(Exception e) {
+			System.out.println("QUERY ERROR");
+			System.out.println(e);
+		}
+		// TODO: close or reuse the queryStatement (but not the result set)
+		return resultSet;		
+	}
+
+	@GetMapping("/healthcheck")
+	public String getHealthCheck() {
+		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
 	}
 
 	@GetMapping("/sources")
@@ -45,8 +64,30 @@ public class AboutMeDbApplication implements CommandLineRunner {
 	}
 
 	@GetMapping("/keyword")
-	public String getKeywordAppearances(@RequestParam(value = "keyword") String keyword) {
-		return "keyword test passed";
+	public List<KeywordAppearance> getKeywordAppearances(@RequestParam(value = "keyword") String keyword) {
+		List<KeywordAppearance> keywordAppearances = new LinkedList<KeywordAppearance>();
+		Optional<ResultSet> maybeQueryResult = Optional.empty();
+		try {
+			maybeQueryResult = executeSQLQuery("select Keyword.name, Source.name \n"
+				+ "from KeywordAppearance inner join Keyword \n"
+				+ "on Keyword.id = KeywordAppearance.keyword = Keyword.id \n"
+				+ "inner join Source \n"
+				+ "on Source.id = KeywordAppearance.source \n");
+			if (maybeQueryResult.isPresent()) {
+				ResultSet queryResult = maybeQueryResult.get();
+				while(queryResult.next()) {
+					keywordAppearances.add(new KeywordAppearance(queryResult.getString(1), queryResult.getString(2)));
+				}
+				queryResult.close();
+			}
+		} catch(SQLException e) {
+			System.out.println("SQL exception");
+			System.out.println(e);
+		}
+
+		return keywordAppearances;
 	}
+
+	// TODO: close db connection on quit
 
 }
