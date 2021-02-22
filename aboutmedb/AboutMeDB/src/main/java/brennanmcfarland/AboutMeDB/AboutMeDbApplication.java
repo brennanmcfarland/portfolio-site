@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 // import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,11 +78,14 @@ public class AboutMeDbApplication implements CommandLineRunner {
 		return resultList;
 	}
 
+	// TODO: investigate CORS settings more closely
+	@CrossOrigin
 	@GetMapping("/healthcheck")
 	public String getHealthCheck() {
 		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
 	}
 
+	@CrossOrigin
 	@GetMapping("/sources")
 	public List<String> getSources() {
 		ResultParser parser = r -> {
@@ -95,6 +99,7 @@ public class AboutMeDbApplication implements CommandLineRunner {
 		return result;
 	}
 
+	@CrossOrigin
 	@GetMapping("/keyword")
 	public List<KeywordAppearance> getKeywordAppearances(@RequestParam(value = "keyword") String keyword) {
 		ResultParser parser = r -> {
