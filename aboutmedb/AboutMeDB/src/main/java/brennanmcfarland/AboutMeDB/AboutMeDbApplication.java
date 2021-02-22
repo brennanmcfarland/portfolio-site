@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+interface ResultParser<T> {
+	T parse(ResultSet resultSet);
+}
+
 // TODO: separate responsibilities
 @SpringBootApplication
 @RestController
@@ -53,30 +57,15 @@ public class AboutMeDbApplication implements CommandLineRunner {
 		return resultSet;		
 	}
 
-	@GetMapping("/healthcheck")
-	public String getHealthCheck() {
-		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
-	}
-
-	@GetMapping("/sources")
-	public String getSources() {
-		return "sources test passed";
-	}
-
-	@GetMapping("/keyword")
-	public List<KeywordAppearance> getKeywordAppearances(@RequestParam(value = "keyword") String keyword) {
-		List<KeywordAppearance> keywordAppearances = new LinkedList<KeywordAppearance>();
+	private <T> List<T> queryToList(String queryString, ResultParser<T> parser) {
+		List<T> resultList = new LinkedList<T>();
 		Optional<ResultSet> maybeQueryResult = Optional.empty();
 		try {
-			maybeQueryResult = executeSQLQuery("select Keyword.name, Source.name \n"
-				+ "from KeywordAppearance inner join Keyword \n"
-				+ "on Keyword.id = KeywordAppearance.keyword = Keyword.id \n"
-				+ "inner join Source \n"
-				+ "on Source.id = KeywordAppearance.source \n");
+			maybeQueryResult = executeSQLQuery(queryString);
 			if (maybeQueryResult.isPresent()) {
 				ResultSet queryResult = maybeQueryResult.get();
 				while(queryResult.next()) {
-					keywordAppearances.add(new KeywordAppearance(queryResult.getString(1), queryResult.getString(2)));
+					resultList.add(parser.parse(queryResult));
 				}
 				queryResult.close();
 			}
@@ -85,7 +74,44 @@ public class AboutMeDbApplication implements CommandLineRunner {
 			System.out.println(e);
 		}
 
-		return keywordAppearances;
+		return resultList;
+	}
+
+	@GetMapping("/healthcheck")
+	public String getHealthCheck() {
+		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
+	}
+
+	@GetMapping("/sources")
+	public List<String> getSources() {
+		ResultParser parser = r -> {
+			try {
+				return r.getString(1);
+			} catch(SQLException e) {
+				System.out.println("Error parsing query result");
+				return "";
+			}};
+			List<String> result = queryToList("select name from Source", parser);
+		return result;
+	}
+
+	@GetMapping("/keyword")
+	public List<KeywordAppearance> getKeywordAppearances(@RequestParam(value = "keyword") String keyword) {
+		ResultParser parser = r -> {
+			try {
+				return new KeywordAppearance(r.getString(1), r.getString(2));
+			} catch(SQLException e) {
+				System.out.println("Error parsing query result");
+				return new KeywordAppearance("", "");
+			}};
+			List<KeywordAppearance> result = queryToList("select Keyword.name, Source.name \n"
+				+ "from KeywordAppearance inner join Keyword \n"
+				+ "on Keyword.id = KeywordAppearance.keyword = Keyword.id \n"
+				+ "inner join Source \n"
+				+ "on Source.id = KeywordAppearance.source \n"
+				+ "where Keyword.name = '" + keyword + "'",
+				parser);
+		return result;
 	}
 
 	// TODO: close db connection on quit
