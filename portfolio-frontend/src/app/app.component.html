@@ -1,3 +1,9 @@
-This site will have a real frontend soon!
-Sources:
-{{ sources$ | async }}
+<mat-toolbar class="header-toolbar">
+    <button mat-button routerLink="home" color="accent"><h1>Brennan McFarland</h1></button>
+    <span class="menu-button-group">
+        <button mat-button routerLink="home">Home</button>
+        <button mat-button routerLink="projects">Projects</button>
+        <button mat-button routerLink="aboutmedb">AboutMeDB</button>
+    </span>
+</mat-toolbar>
+<router-outlet></router-outlet>

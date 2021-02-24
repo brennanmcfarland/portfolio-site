@@ -1,0 +1,17 @@
+.profile-header {
+    display: flex;
+}
+
+.profile-image {
+    clip-path: circle(150px at 50% 40%);
+    margin-bottom: -75px;
+}
+
+.welcome-blurb-container {
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-blurb {
+    // max-width: 60%;
+}
