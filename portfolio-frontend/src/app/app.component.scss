@@ -2,6 +2,16 @@
     display: flex;
 }
 
+.site-title {
+    visibility: hidden;
+}
+
+@media only screen and (min-width: 500px) {
+    .site-title {
+        visibility: visible;
+    }
+}
+
 .menu-button-group {
     flex-grow: 1;
     display: flex;

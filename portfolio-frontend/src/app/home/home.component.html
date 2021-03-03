@@ -1,10 +1,11 @@
 <div class="profile-header">
-    <img src="../../assets/me.png" class="profile-image" matTooltip="A very professional picture of me">
-    <mat-list role="list">
+    <img src="../../assets/me.png" class="profile-image" matTooltip="A very professional picture of me" matTooltipPosition="before">
+    <mat-list role="list" class="home-links">
         <!-- TODO: make these components -->
-        <mat-list-item role="listitem" style="margin-left: -30px;"><a mat-stroked-button href="https://www.linkedin.com/in/brennanmcfarland"><b>LinkedIn</b> <span style="margin: 0 10px; border: 1px solid grey; height: 1em; width: 0"></span> includes my resume</a></mat-list-item>
-        <mat-list-item role="listitem" style="margin-left: 0px;"><a mat-stroked-button href="https://www.github.com/brennanmcfarland"><b>GitHub</b> <span style="margin: 0 10px; border: 1px solid grey; height: 1em; width: 0"></span> my public facing coding projects</a></mat-list-item>
-        <mat-list-item role="listitem" style="margin-left: 20px;"><a mat-stroked-button href="mailto:theotherbrennanmcfarland@gmail.com"><b>Email</b> <span style="margin: 0 10px; border: 1px solid grey; height: 1em; width: 0"></span> my public facing email; for my professional email please see my resume</a></mat-list-item>
+        <mat-list-item role="listitem"><div class="home-link"><a mat-stroked-button href="https://www.linkedin.com/in/brennanmcfarland"><b>LinkedIn/Resume</b> <span style="margin: 0 10px; border: 1px solid grey; height: 1em; width: 0"></span> access my resume via LinkedIn</a></div></mat-list-item>
+        <mat-list-item role="listitem"><div class="home-link"><a mat-stroked-button href="https://www.github.com/brennanmcfarland"><b>GitHub</b> <span style="margin: 0 10px; border: 1px solid grey; height: 1em; width: 0"></span> my public facing coding projects</a></div></mat-list-item>
+        <mat-list-item role="listitem"><div class="home-link"><a mat-stroked-button href="mailto:theotherbrennanmcfarland@gmail.com"><b>Email</b> <span style="margin: 0 10px; border: 1px solid grey; height: 1em; width: 0"></span> my public facing email</a></div></mat-list-item>
+        <mat-list-item role="listitem" class="footnote"><div class="home-link">For my professional email, please see my resume</div></mat-list-item>
     </mat-list>
 </div>
 <div class="welcome-blurb-container">
@@ -20,6 +21,3 @@
 
     
 </div>
-<footer style="margin-left: 10px; font-size: .75em;">
-    P.S.: Yes I know it's not responsive; I'll get around to it.
-</footer>
