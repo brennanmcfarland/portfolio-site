@@ -1,3 +1,35 @@
+@keyframes fade {
+    from { opacity: 0;}
+    to { opacity: .4;}
+}
+
+.home-view-container::before {
+    background-image: url('../../assets/IMG_1264.JPG');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 90vh;
+
+    // a workaround for a cross-browser-compatible semitransparent background image
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    z-index: -1;
+    animation-name: fade;
+    animation-duration: .5s;
+    animation-delay: .1s;
+    animation-fill-mode: forwards;
+}
+
+.home-view-container {
+    position: relative;
+}
+
 .profile-header {
     display: flex;
     width: 100%;
@@ -9,6 +41,31 @@
     margin-bottom: -75px;
 }
 
+.profile-image-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+mat-list {
+    flex-grow: 1;
+}
+
+@media only screen and (min-width: 735px) {
+    mat-list {
+        flex-grow: 0;
+    }
+    
+    .profile-image-container {
+        flex-grow: 0;
+    }
+
+    .profile-image {
+        margin-top: 2vw;
+        margin-left: 2vw;
+    }
+}
+
 .welcome-blurb-container {
     display: flex;
     justify-content: center;
@@ -18,9 +75,13 @@
     font-size: .75em;
 }
 
-.home-link {
+.home-link-item {
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.home-link {
+    background-color: #30303055; // TODO: theme this
 }
