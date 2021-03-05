@@ -32,9 +32,7 @@
 }
 
 .profile-header {
-    display: flex;
     width: 100%;
-    flex-wrap: wrap;
 }
 
 .profile-image {
@@ -49,7 +47,6 @@
 }
 
 .home-links {
-    flex-grow: 1;
     margin-top: 15px;
 }
 
@@ -64,7 +61,6 @@
 
     .profile-image {
         margin-top: 2vw;
-        margin-left: 2vw;
     }
 }
 
@@ -80,7 +76,6 @@
 .home-link-item {
     width: 100%;
     margin-bottom: 5px;
-    margin-right: 15px;
     display: flex;
     align-items: center;
     flex-direction: column;
