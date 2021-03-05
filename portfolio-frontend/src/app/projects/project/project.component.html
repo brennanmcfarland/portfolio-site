@@ -1,0 +1,12 @@
+<app-content-block>
+    <div class="project-header">
+        <div>
+            <h1>{{ title }}</h1>
+        </div>
+        <div *ngIf="isSchoolProject"> <i>school project</i></div> <!-- TODO: make this look nice -->
+        <div class="project-link">
+            <a mat-button color="accent" href="{{link}}">{{ link }}</a>
+        </div>
+    </div>
+    <ng-content></ng-content>
+</app-content-block>

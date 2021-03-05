@@ -1,0 +1,16 @@
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.project-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.project-link {
+    max-width: 90vw;
+    overflow: hidden;
+}

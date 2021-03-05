@@ -1,5 +1,46 @@
-<app-content-block>
-    I have plenty of projects, but this part of the site is coming soon! In the meantime, please see my 
-    <a mat-button color="accent" href="https://www.github.com/brennanmcfarland" style="margin: -10px -10px;">GitHub</a> 
-    to see what projects I am/have been working on.
-</app-content-block>
+<div class="background-image-container"></div>
+<div class="view-title"><h1>Projects</h1></div>
+<div class="projects-view-container">
+    <app-content-block>
+        My GitHub has a lot of cruft in it, so I thought it'd be helpful to enumerate some of my most interesting projects over the years.  
+        Unless otherwise marked each one of these is a personal side project, and I only included projects that were "original" (eg, I did 
+        not include school projects where everyone coded the same thing):
+    </app-content-block>
+    <app-project title="Arctic Flaming Monkey Typhoon (arc23)" link="https://github.com/brennanmcfarland/arc23">
+        A deep learning library built on/to be used in conjunction with PyTorch.
+    </app-project>
+    <app-project title="Portfolio Site" link="https://github.com/brennanmcfarland/portfolio-site">
+        This site! My portfolio/about me website.
+    </app-project>
+    <app-project title="Torch Art" link="https://github.com/brennanmcfarland/torch-art">
+        A classifier convolutional neural network trained on the Cleveland Museum of Art dataset I made to try out/get familiar with PyTorch.
+    </app-project>
+    <app-project title="Cardinal" link="https://github.com/brennanmcfarland/Cardinal">
+        A digital voice assistant and accessibility tool.
+    </app-project>
+    <app-project title="Osprey" link="https://github.com/brennanmcfarland/Osprey">
+        A client-server application that messages people when they're being too loud.
+    </app-project>
+    <app-project title="Weiver" link="https://github.com/brennanmcfarland/Weiver">
+        A review aggregation and analytics program hackathon project.
+    </app-project>
+    <app-project title="Unity Strategy Game Prototype" link="https://github.com/brennanmcfarland/hexagons">
+        A prototype turn-based strategy game I made in the Unity Game Engine when I was learning the fundamentals.
+    </app-project>
+    <app-project title="Keras Projects" link="https://github.com/brennanmcfarland/keras">
+        I'll write a more detailed description after dinner.  There's a recurrent neural network in there that generates text (and it works)!
+    </app-project>
+    <app-project title="StyleGAN2" link="https://github.com/brennanmcfarland/stylegan2">
+        My unfinished attempt at replicating StyleGAN2, a generative adversarial neural network.
+    </app-project>
+    <app-project title="BBSBBS" link="https://github.com/brennanmcfarland/networksclass/tree/master/project4" [isSchoolProject]="true">
+        A good old-fashioned bulletin board system.
+    </app-project>
+    <app-project title="Wireframes" link="https://github.com/brennanmcfarland/softwarecraftsmanship/tree/master/wireframes" [isSchoolProject]="true">
+        A representational model of UI elements on a canvas.
+    </app-project>
+    <app-project title="Jobs Manager" link="https://github.com/brennanmcfarland/jobs-manager" [isSchoolProject]="true">
+        Manages tasks and schedules their related processes.
+    </app-project>    
+    <!-- TODO: actually flesh these out and maybe reorder -->
+</div>

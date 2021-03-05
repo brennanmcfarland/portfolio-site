@@ -16,6 +16,7 @@ import { AboutmedbAppComponent } from './aboutmedb/aboutmedb-app/aboutmedb-app.c
 import { ProjectsComponent } from './projects/projects.component';
 import { ContentBlockComponent } from './content-block/content-block.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProjectComponent } from './projects/project/project.component';
 
 // TODO: split out these modules
 @NgModule({
@@ -27,6 +28,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ProjectsComponent,
     ContentBlockComponent,
     PageNotFoundComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,

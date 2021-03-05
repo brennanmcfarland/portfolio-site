@@ -1,0 +1,18 @@
+.page-not-found-view-container::before {
+    background-image: url('../../assets/IMG_1179.JPG');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 90vh;
+
+    // a workaround for a cross-browser-compatible semitransparent background image
+    opacity: .4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    z-index: -1;
+}
