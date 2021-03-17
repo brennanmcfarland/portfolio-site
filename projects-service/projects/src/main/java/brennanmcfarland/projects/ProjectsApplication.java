@@ -31,11 +31,19 @@ interface ResultParser<T> {
 
 class Project {
 	public final String name;
+	public final String displayName;
 	public final String description;
+	public final String sourceUrl;
+	public final boolean isSchoolProject;
+	public final short precedence;
 	
-	public Project(String name, String description) {
+	public Project(String name, String displayName, String description, String sourceUrl, boolean isSchoolProject, short precedence) {
 		this.name = name;
+		this.displayName = displayName;
 		this.description = description;
+		this.sourceUrl = sourceUrl;
+		this.isSchoolProject = isSchoolProject;
+		this.precedence = precedence;
 	}
 }
 
@@ -75,15 +83,16 @@ public class ProjectsApplication implements CommandLineRunner {
 		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
 	}
 
+	// TODO: clean up or remove
 	@CrossOrigin
 	@GetMapping("/projects")
 	public List<Project> getProjects() {
 		ResultParser<Project> parser = r -> {
 			try {
 				// TODO: make an actual fileserver? or does it not matter since this is a microservice anyway?
-				Path descriptionPath = Path.of("src/main/resources/static/descriptions", r.getString(2));
+				Path descriptionPath = Path.of("src/main/resources/static/descriptions", r.getString(3));
 				String description = Files.readString(descriptionPath, StandardCharsets.UTF_8);
-				return new Project(r.getString(1), description);
+				return new Project(r.getString(1), r.getString(2), description, r.getString(4), r.getBoolean(5), r.getShort(6));
 			} catch(IOException|SQLException e) {
 				log.error("Error parsing query result");
 				log.error(e.toString());
@@ -100,6 +109,39 @@ public class ProjectsApplication implements CommandLineRunner {
 			while(queryResult.next()) {
 				result.add(parser.parse(queryResult));
 			}
+			queryResult.close();
+		} catch (SQLException e) {
+			log.error("SQL exception");
+			log.error(e.toString());
+		}
+		
+		return result;
+	}
+
+	@CrossOrigin
+	@GetMapping("/project")
+	public Project getProject(@RequestParam(value = "name") String projectName) {
+		ResultParser<Project> parser = r -> {
+			try {
+				// TODO: make an actual fileserver? or does it not matter since this is a microservice anyway?
+				Path descriptionPath = Path.of("src/main/resources/static/descriptions", r.getString(3));
+				String description = Files.readString(descriptionPath, StandardCharsets.UTF_8);
+				return new Project(r.getString(1), r.getString(2), description, r.getString(4), r.getBoolean(5), r.getShort(6));
+			} catch(IOException|SQLException e) {
+				log.error("Error parsing query result");
+				log.error(e.toString());
+				return null;
+			}
+		};
+		Project result = new Project("", "", "", "", false, (short)32767);
+		try {
+			Statement queryStatement = connection.createStatement();
+			if (queryStatement == null) {
+				throw new SQLException("SQL statement is falsy");
+			}
+			ResultSet queryResult = queryStatement.executeQuery("select * from Project where name='" + projectName + "'");
+			queryResult.next();
+			result = parser.parse(queryResult);
 			queryResult.close();
 		} catch (SQLException e) {
 			log.error("SQL exception");

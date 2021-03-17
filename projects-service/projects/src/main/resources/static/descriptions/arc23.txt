@@ -1,1 +1,1 @@
-A deep learning library built on/to be used in conjunction with PyTorch
+A deep learning library built on/to be used in conjunction with PyTorch.

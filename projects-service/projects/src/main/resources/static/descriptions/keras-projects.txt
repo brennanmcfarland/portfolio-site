@@ -1,0 +1,1 @@
+I'll write a more detailed description after dinner.  There's a recurrent neural network in there that generates text (and it works)!

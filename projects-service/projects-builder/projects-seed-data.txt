@@ -1,13 +1,12 @@
-test-project	test.txt
-arc23	arc23.txt
-portfolio-site	portfolio-site.txt
-torch-art	torch-art.txt
-cardinal	cardinal.txt
-osprey	osprey.txt
-weiver	weiver.txt
-unity-strategy-game	unity-strategy-game.txt
-keras-projects	keras-projects.txt
-stylegan2	stylegan2.txt
-bbsbbs	bbsbbs.txt
-wireframes	wireframes.txt
-jobs-manager	jobs-manager.txt
+arc23	Arctic Flaming Monkey Typhoon (arc23)	arc23.txt	https://github.com/brennanmcfarland/arc23	0	0
+portfolio-site	Portfolio Site	portfolio-site.txt	https://github.com/brennanmcfarland/portfolio-site	0	1
+torch-art	Torch Art	torch-art.txt	https://github.com/brennanmcfarland/torch-art	0	2
+cardinal	Cardinal	cardinal.txt	https://github.com/brennanmcfarland/Cardinal	0	3
+osprey	Osprey	osprey.txt	https://github.com/brennanmcfarland/Osprey	0	4
+weiver	Weiver	weiver.txt	https://github.com/brennanmcfarland/Weiver	0	5
+unity-strategy-game	Unity Strategy Game Prototype	unity-strategy-game.txt	https://github.com/brennanmcfarland/hexagons	0	6
+keras-projects	Keras Projects	keras-projects.txt	https://github.com/brennanmcfarland/keras	0	7
+stylegan2	StyleGAN2	stylegan2.txt	https://github.com/brennanmcfarland/stylegan2	0	8
+bbsbbs	BBSBBS	bbsbbs.txt	https://github.com/brennanmcfarland/networksclass/tree/master/project4	1	9
+wireframes	Wireframes	wireframes.txt	https://github.com/brennanmcfarland/softwarecraftsmanship/tree/master/wireframes	1	10
+jobs-manager	Jobs Manager	jobs-manager.txt	https://github.com/brennanmcfarland/jobs-manager	1	11

@@ -1,0 +1,1 @@
+A representational model of UI elements on a canvas.

@@ -22,6 +22,9 @@ public class ApiGatewayApplication {
 			.route(p -> p
 				.path("/projects")
 				.uri("http://localhost:9310"))
+			.route(p -> p
+				.path("/project")
+				.uri("http://localhost:9310"))
 			.build();
 	}
 
