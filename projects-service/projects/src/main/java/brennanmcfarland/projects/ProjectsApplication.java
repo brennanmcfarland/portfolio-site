@@ -25,6 +25,7 @@ interface ResultParser<T> {
 public class ProjectsApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(ProjectsApplication.class);
+	// TODO: move to class and enforce it's always truthy
 	private Connection connection;
 
 	public static void main(String[] args) {
@@ -57,7 +58,7 @@ public class ProjectsApplication implements CommandLineRunner {
 	// TODO: remove "throws" and actually catch the errors
 	@CrossOrigin
 	@GetMapping("/projects")
-	public List<String> getProjects() throws SQLException {
+	public List<String> getProjects() {
 		ResultParser<String> parser = r -> {
 			try {
 				return r.getString(1);
@@ -66,13 +67,22 @@ public class ProjectsApplication implements CommandLineRunner {
 				return "";
 			}
 		};
-		// TODO: make this part robust
-		ResultSet queryResult = connection.createStatement().executeQuery("select * from Project");
 		List<String> result = new LinkedList<String>();
-		while(queryResult.next()) {
-			result.add(parser.parse(queryResult));
+		try {
+			Statement queryStatement = connection.createStatement();
+			if (queryStatement == null) {
+				throw new SQLException("SQL statement is falsy");
+			}
+			ResultSet queryResult = queryStatement.executeQuery("select * from Project");
+			while(queryResult.next()) {
+				result.add(parser.parse(queryResult));
+			}
+			queryResult.close();
+		} catch (SQLException e) {
+			log.error("SQL exception");
+			log.error(e.toString());
 		}
-		queryResult.close();
+		
 		return result;
 	}
 }

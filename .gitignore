@@ -1,4 +1,5 @@
 aboutmedb/AboutMeDB/build
+api-gateway/projects/build
 projects-service/projects/build
 portfolio-frontend/node_modules
 portfolio-frontend/package-lock.json
