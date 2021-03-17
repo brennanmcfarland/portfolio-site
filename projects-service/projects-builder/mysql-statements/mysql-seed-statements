@@ -1,0 +1,8 @@
+create database projects;
+use projects;
+create table Project (name VARCHAR(64) primary key, description_uri VARCHAR(128) not null);
+set global local_infile = true;
+load data local infile 'projects-seed-data.txt' into table Project;
+set global local_infile = false;
+create user 'backend'@'localhost' identified by 'nottherealpassword';
+grant select on projects.* to 'backend'@'localhost';
