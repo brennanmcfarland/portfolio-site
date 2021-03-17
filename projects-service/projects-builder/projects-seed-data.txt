@@ -1,1 +1,13 @@
-test project	test_//uri
+test-project	test.txt
+arc23	arc23.txt
+portfolio-site	portfolio-site.txt
+torch-art	torch-art.txt
+cardinal	cardinal.txt
+osprey	osprey.txt
+weiver	weiver.txt
+unity-strategy-game	unity-strategy-game.txt
+keras-projects	keras-projects.txt
+stylegan2	stylegan2.txt
+bbsbbs	bbsbbs.txt
+wireframes	wireframes.txt
+jobs-manager	jobs-manager.txt

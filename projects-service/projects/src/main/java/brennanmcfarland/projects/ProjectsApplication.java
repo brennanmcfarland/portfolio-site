@@ -4,6 +4,14 @@ import java.util.Optional;
 import java.util.List;
 import java.util.LinkedList;
 import java.sql.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.io.IOException;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.boot.CommandLineRunner;
 import org.slf4j.Logger;
@@ -15,8 +23,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO: cleanup/split out this file
+
 interface ResultParser<T> {
         T parse(ResultSet resultSet);
+}
+
+class Project {
+	public final String name;
+	public final String description;
+	
+	public Project(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 }
 
 // TODO: separate responsibilities
@@ -55,19 +75,22 @@ public class ProjectsApplication implements CommandLineRunner {
 		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
 	}
 
-	// TODO: remove "throws" and actually catch the errors
 	@CrossOrigin
 	@GetMapping("/projects")
-	public List<String> getProjects() {
-		ResultParser<String> parser = r -> {
+	public List<Project> getProjects() {
+		ResultParser<Project> parser = r -> {
 			try {
-				return r.getString(1);
-			} catch(SQLException e) {
+				// TODO: make an actual fileserver? or does it not matter since this is a microservice anyway?
+				Path descriptionPath = Path.of("src/main/resources/static/descriptions", r.getString(2));
+				String description = Files.readString(descriptionPath, StandardCharsets.UTF_8);
+				return new Project(r.getString(1), description);
+			} catch(IOException|SQLException e) {
 				log.error("Error parsing query result");
-				return "";
+				log.error(e.toString());
+				return null;
 			}
 		};
-		List<String> result = new LinkedList<String>();
+		List<Project> result = new LinkedList<Project>();
 		try {
 			Statement queryStatement = connection.createStatement();
 			if (queryStatement == null) {
