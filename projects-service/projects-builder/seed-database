@@ -1,1 +1,1 @@
-sed "s/nottherealpassword/$1/" mysql-statements/mysql-seed-statements | mysql --load-data-local-dir . -h localhost -u root -p
+sed "s/nottherealpassword/$1/" mysql-statements/mysql-seed-statements | mysql --load-data-local-dir . -h localhost -u root
