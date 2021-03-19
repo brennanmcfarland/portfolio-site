@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: automate this instead of copy-pasting into user resources
 # TODO: containerize this
 # install mysql client and server
 apt install mysql-server -y
@@ -19,15 +20,11 @@ password=$(openssl rand -base64 32 | sed 's/[^a-zA-Z0-9]//g')
 # create and populate the database
 bash seed-database $password
 cd ../projects
-# install gradle
-wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
-mkdir /opt/gradle
-apt install unzip -y
-unzip -d /opt/gradle gradle-6.8.3-bin.zip
-export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
 # install jdk
+apt-get purge openjdk-\* -y
 wget https://download.java.net/java/GA/jdk15.0.2/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-15.0.2_linux-x64_bin.tar.gz
 tar xvf openjdk-15.0.2_linux-x64_bin.tar.gz
 export JAVA_HOME=jdk-15.0.2/
-gradle build
-gradle BootRun -Pargs=$password
+export PATH=jdk-15.0.2/bin:$PATH
+mv build/libs/projects-0.0.1-SNAPSHOT.jar .
+java -jar projects-0.0.1-SNAPSHOT.jar $password
