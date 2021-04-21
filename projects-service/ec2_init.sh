@@ -10,6 +10,7 @@ sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sudo certbot certonly --standalone --non-interactive --agree-tos -m theotherbrennanmcfarland@gmail.com -d api.brennanmcfarland.com
+`openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -name tomcat -CAfile chain.pem -caname root`
 
 # root password for the database
 rootpassword=$(openssl rand -base64 32 | sed 's/[^a-zA-Z0-9]//g')
