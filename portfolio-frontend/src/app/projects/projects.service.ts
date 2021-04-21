@@ -11,8 +11,7 @@ export class ProjectsService {
   constructor(private http: HttpClient) { }
 
   // TODO: type everything
-  // TODO: fix this to point to the group, this will break soon when the instance changes
-  projects$: Observable<any> = this.http.get<any>("http://54.82.19.239:9310/projects")
+  projects$: Observable<any> = this.http.get<any>("https://api.brennanmcfarland.com:9310/projects")
     .pipe(
       map(projects => projects.sort((a: any, b: any) => a.precedence - b.precedence)));
 

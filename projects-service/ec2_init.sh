@@ -4,6 +4,13 @@
 # install mysql client and server
 apt install mysql-server -y
 apt install mysql-client -y
+
+# ssl cert
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot certonly --standalone --non-interactive --agree-tos -m theotherbrennanmcfarland@gmail.com -d api.brennanmcfarland.com
+
 # root password for the database
 rootpassword=$(openssl rand -base64 32 | sed 's/[^a-zA-Z0-9]//g')
 echo "alter user 'root'@'localhost' identified by '$rootpassword'" > tmp_password_change.txt
@@ -27,4 +34,6 @@ tar xvf openjdk-15.0.2_linux-x64_bin.tar.gz
 export JAVA_HOME=jdk-15.0.2/
 export PATH=jdk-15.0.2/bin:$PATH
 mv build/libs/projects-0.0.1-SNAPSHOT.jar .
-java -jar projects-0.0.1-SNAPSHOT.jar $password
+java -jar projects-0.0.1-SNAPSHOT.jar $password &
+mv ../../api-gateway/build/libs/api-gateway-0.0.1-SNAPSHOT.jar .
+java -jar api-gateway-0.0.1-SNAPSHOT.jar &

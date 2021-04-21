@@ -21,10 +21,10 @@ public class ApiGatewayApplication {
 		return builder.routes()
 			.route(p -> p
 				.path("/projects")
-				.uri("http://localhost:9310"))
+				.uri("http://localhost:9100"))
 			.route(p -> p
 				.path("/project")
-				.uri("http://localhost:9310"))
+				.uri("http://localhost:9100"))
 			.build();
 	}
 
