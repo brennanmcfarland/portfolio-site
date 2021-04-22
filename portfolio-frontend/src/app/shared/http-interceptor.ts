@@ -11,7 +11,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
     private readonly timeoutInterval = 10000;
 
     constructor(private http: HttpClient, private backendFallback: BackendFallbackService) {
-        http.get<any>("https://api.brennanmcfarland.com:9310/projects").pipe(timeout(this.timeoutInterval))
+        http.get<any>("https://svzwi7ndpf.execute-api.us-east-1.amazonaws.com/projects").pipe(timeout(this.timeoutInterval))
         .subscribe(
           value => {},
           err => this.isBackendDownSubject.next(true)

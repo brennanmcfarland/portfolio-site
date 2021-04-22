@@ -8,6 +8,10 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * This Gateway app isn't really used right now because I'm tired of trying to configure SSL certs and stuff
+ * so I just used AWS API Gateway instead.  It works locally though.
+ */
 @SpringBootApplication
 @RestController
 public class ApiGatewayApplication {
