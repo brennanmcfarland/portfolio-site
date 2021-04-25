@@ -17,6 +17,9 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ContentBlockComponent } from './content-block/content-block.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProjectComponent } from './projects/project/project.component';
+import { LiveIndicatorComponent } from './live-indicator/live-indicator.component';
+import {MatIconModule} from '@angular/material/icon';
+import { AboutSiteComponent } from './about-site/about-site.component'; 
 
 // TODO: split out these modules
 @NgModule({
@@ -29,12 +32,15 @@ import { ProjectComponent } from './projects/project/project.component';
     ContentBlockComponent,
     PageNotFoundComponent,
     ProjectComponent,
+    LiveIndicatorComponent,
+    AboutSiteComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,       
     HttpClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
     MatToolbarModule,
     MatButtonModule,
     MatTooltipModule,

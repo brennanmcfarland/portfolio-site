@@ -1,30 +1,22 @@
 import { HttpClient, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, combineLatest, Subject } from "rxjs";
-import { switchMap, timeout } from "rxjs/operators";
+import { startWith, switchMap, timeout } from "rxjs/operators";
 import { BackendFallbackService } from "./backend-fallback.service";
+import { BackendHealthcheckService } from "./backend-healthcheck.service";
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 
-    private isBackendDownSubject = new BehaviorSubject(false);
-    private readonly timeoutInterval = 10000;
-
-    constructor(private http: HttpClient, private backendFallback: BackendFallbackService) {
-        http.get<any>("https://svzwi7ndpf.execute-api.us-east-1.amazonaws.com/projects").pipe(timeout(this.timeoutInterval))
-        .subscribe(
-          value => {},
-          err => this.isBackendDownSubject.next(true)
-        );
-    }
+    constructor(private http: HttpClient,
+        private backendHealthcheck: BackendHealthcheckService,
+        private backendFallback: BackendFallbackService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const response = new Subject<any>();
-        // if backend off, return backup, else return request
-        // first will be behaviorsubject
-        // after that just act on whichever first
-        //return this.isBackendDown ? this.backendFallback.handle() : next.handle(req);
-        return this.isBackendDownSubject.pipe(
+        // if backend known to be down, return backup and cancel any in-flight requests, else return request
+        return this.backendHealthcheck.isBackendDown$.pipe(
+            startWith(false),
             switchMap((isDown: boolean) => isDown ? this.backendFallback.handle(req) : next.handle(req)));
     }
 }

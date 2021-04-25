@@ -6,7 +6,7 @@
     visibility: hidden;
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 600px) {
     .site-title {
         visibility: visible;
     }
@@ -16,4 +16,19 @@
     flex-grow: 1;
     display: flex;
     justify-content: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 1em;
+    width: 100%;
+    padding: 2px 10px;
+    display: flex;
+    font-size: .7em;
+    line-height: 1em;
+    background-color: #202020dd; // TODO: theme this
+}
+
+footer a {
+    color: mediumseagreen;
 }

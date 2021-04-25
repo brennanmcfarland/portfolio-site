@@ -25,7 +25,7 @@ export class AppComponent {
         routeData.title + " - Brennan McFarland"
         : "Brennan McFarland - Portfolio Site";
       titleService.setTitle(title);
-    })
+    });
   }
 
   /**

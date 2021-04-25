@@ -1,0 +1,12 @@
+<button mat-button routerLink="home">
+    <span class="helper-text">API is</span>
+    <span *ngIf="isBackendHit$ | async">
+        <span *ngIf="!(isBackendDown$ | async)">
+            <mat-icon class="icon-live" svgIcon="live" color="accent"></mat-icon>
+        </span>
+        <span *ngIf="isBackendDown$ | async">
+            <mat-icon class="icon-off" svgIcon="off" color="warn"></mat-icon>
+        </span>
+    </span>
+    <span *ngIf="!(isBackendHit$ | async)">...</span>
+</button>
