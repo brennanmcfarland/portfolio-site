@@ -54,7 +54,7 @@ public class ProjectsApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(ProjectsApplication.class);
 	// TODO: move to class and enforce it's always truthy
-	private Connection connection;
+	private String password;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectsApplication.class, args);
@@ -67,14 +67,7 @@ public class ProjectsApplication implements CommandLineRunner {
 			throw new IllegalArgumentException("Incorrect number of parameters");
 		}
 		// the password needs to be the same one the database was created with
-		String password = strings[0];
-		log.info("establishing db connection...");
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/projects", "backend", password);
-		} catch(Exception e) {
-			log.error("DATABASE CONNECTION ERROR");
-			log.error(e.toString());
-		}
+		password = strings[0];
 	}
 
 	@CrossOrigin
@@ -83,10 +76,26 @@ public class ProjectsApplication implements CommandLineRunner {
 		return "Healthcheck passed.  This means an API endpoint was hit successfully.";
 	}
 
+	private Connection getConnection() {
+		log.info("establishing db connection...");
+		try {
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/projects", "backend", password);
+		} catch(Exception e) {
+			log.error("DATABASE CONNECTION ERROR");
+			log.error(e.toString());
+			return null;
+		}
+	}
+
 	// TODO: clean up or remove
 	@CrossOrigin
 	@GetMapping("/projects")
 	public List<Project> getProjects() {
+		Connection connection = getConnection();
+		if (connection == null) {
+			return null;
+		}
+
 		ResultParser<Project> parser = r -> {
 			try {
 				// TODO: make an actual fileserver? or does it not matter since this is a microservice anyway?
@@ -121,6 +130,11 @@ public class ProjectsApplication implements CommandLineRunner {
 	@CrossOrigin
 	@GetMapping("/project")
 	public Project getProject(@RequestParam(value = "name") String projectName) {
+		Connection connection = getConnection();
+		if (connection == null) {
+			return null;
+		}
+
 		ResultParser<Project> parser = r -> {
 			try {
 				// TODO: make an actual fileserver? or does it not matter since this is a microservice anyway?
