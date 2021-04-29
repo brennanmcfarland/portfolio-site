@@ -10,7 +10,5 @@
     <app-project *ngFor="let project of projects$ | async" title="{{project.displayName}}" link="{{project.sourceUrl}}" [isSchoolProject]="project.isSchoolProject">
         {{ project.description }}
     </app-project>
-    <!-- TODO: actually flesh these out, play with ordering? -->
     <!-- TODO: empty/failure state -->
-    <!-- TODO: a component describing a part of the site's implementation might be neat -->
 </div>
