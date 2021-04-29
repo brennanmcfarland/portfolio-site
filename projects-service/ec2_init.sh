@@ -5,6 +5,9 @@
 apt install mysql-server -y
 apt install mysql-client -y
 
+# update keepalive time so the db connection doesn't time out
+echo 600 > /proc/sys/net/ipv4/tcp_keepalive_time
+
 # root password for the database
 rootpassword=$(openssl rand -base64 32 | sed 's/[^a-zA-Z0-9]//g')
 echo "alter user 'root'@'localhost' identified by '$rootpassword'" > tmp_password_change.txt
