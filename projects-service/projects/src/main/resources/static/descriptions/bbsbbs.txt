@@ -1,1 +1,1 @@
-A good old-fashioned bulletin board system.
+A good old-fashioned bulletin board system.  For the uninitiated, it's basically like a website before the web existed, but only on command line.  I'm told they were all the rage before I even existed.  This one is written in C, so it's probably full of dangerous buffer overflows and whatnot, but you can in fact run the included client and server and they'll connect over TCP.  You can use it to get the server time, list, read, and edit files on the server, and see a log of other users that have logged in previously.

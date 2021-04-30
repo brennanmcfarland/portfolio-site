@@ -1,1 +1,1 @@
-My unfinished attempt at replicating StyleGAN2, a generative adversarial neural network.
+My unfinished attempt at replicating StyleGAN2, a generative adversarial neural network.  In theory it should generate images, maybe probably.  You might find this really neat and interesting since it's got lots of complicated fancy AI stuff, or not at all because it doesn't actually work and I have no idea how close to working it is.  But still.

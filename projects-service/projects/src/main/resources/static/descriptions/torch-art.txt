@@ -1,1 +1,1 @@
-A classifier convolutional neural network trained on the Cleveland Museum of Art dataset I made to try out/get familiar with PyTorch.
+A classifier convolutional neural network trained on the Cleveland Museum of Art dataset.  It attempts to categorize images as paintings, drawings, sculpture, and somesuch sundry things.  And it's significantly better than random!

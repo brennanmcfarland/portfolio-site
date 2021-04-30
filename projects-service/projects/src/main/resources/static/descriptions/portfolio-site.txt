@@ -1,1 +1,1 @@
-This site! My portfolio/about me website.
+This site! My portfolio/about me website.  Since I already have an entire page of the site dedicated to explaining it, I'll just link that here.  Of course, I don't actually remember if this component will support HTML and I'm too lazy to check, so here goes: <a href="https://www.brennanmcfarland.com/aboutsite">This Site</a>.  Did it work?

@@ -1,1 +1,1 @@
-A review aggregation and analytics program hackathon project.
+A review aggregation and analytics program.  Type in the name of a technology product and it'll scrape the web for reviews.  In addition to grabbing such tidbits as the pros and cons, it'll search for relevant keywords that come up in association with the product to help give an impression of aggregate reviewer sentiment.
