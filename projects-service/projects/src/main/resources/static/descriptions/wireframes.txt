@@ -1,1 +1,0 @@
-A representational model (ie renderer not included) of UI elements on a canvas.  Elements such as images, text boxes, lists, etc can all be grouped, annotated, moved, scaled, and ordered on a canvas.

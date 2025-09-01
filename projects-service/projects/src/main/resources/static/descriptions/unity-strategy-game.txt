@@ -1,1 +1,0 @@
-A prototype turn-based strategy game I made in the Unity Game Engine when I was learning the fundamentals.  Terrible code, but it has lots of fancy stuff like random terrain generation, text based map editing, pathfinding, camera controls, saving and loading, turn cycles, and even some dumb-as-rocks AI.
