@@ -1,1 +1,0 @@
-A client-server application for noisy roomates.  The client listens in on a microphone and contacts the server when the ambient noise gets too loud.  The server then promptly sends them an email telling them to be quiet.  Would that it were more effective.

@@ -1,1 +1,0 @@
-A task manager that lets you start, stop and view tasks and intelligently allocates CPU time for each of them so they can run concurrently, or pseudoconcurrently if only one thread is available.  It can manage any terminal command, so any program can be a task.

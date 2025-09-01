@@ -1,2 +1,0 @@
-drop database projects;
-drop user backend@localhost;

@@ -1,1 +1,0 @@
-A smorgishborg, schmorgasborg? of little neural nets.  Some image processing stuff, but the most interesting part is probably a recurrent neural network that generates text.  Not this text though.  Maybe it could spell shmorgisborg correctly (probably not).
